@@ -17,3 +17,6 @@ I have a problem with managing expired foods. Many times over, I have disappoint
 from my pantry that turned out to be *a few years* too old or grabbed cheese that was a *little bit* 
 greener than it should be. It haunts my dreams. So, I decided to build a solution: an app that can
 track my food for me. 
+
+## What was learned
+This is my first time making a complete web application from scratch.
