@@ -9,7 +9,7 @@ Pantry provides a simple interface for making grocery lists, managing pantry
 items, and tracking grocery spending habits. It will help you cut down on food waste
 
 ## How it's built
-Pantry is built using Python and Flask for the backend and vanilla HTML and CSS for the frontend. 
+Pantry is built using Python and Flask for the backend and vanilla HTML and CSS with bootstrap and jQuery for the frontend. 
 
 ## How to run it
 1. Install the `requirements.txt` packages.
@@ -24,7 +24,7 @@ greener than it should be. It haunts my dreams. So, I decided to build a solutio
 track my food for me. 
 
 ## What was learned
-This is my first time making a complete web application from scratch. I learned how to store user data
-and create an interactive 
+This is my first time making a complete web application from scratch. I learned how to store user data, 
+design the front end, and create a cohesive user experience.
 
-https://thenounproject.com/icon/grocery-5182392/
+[Groceries icons created by Freepik - Flaticon](https://www.flaticon.com/free-icons/groceries)
