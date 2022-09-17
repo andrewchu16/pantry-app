@@ -1,10 +1,10 @@
 :root {
-    --bg-color-1: #F6F4F2;
-    --bg-color-2: #587E5B;
-    --heading-color-1: #FFD02C;
-    --text-color-1: #D8AF27;
-    --green: #31422E;
+    --white: #FFFDD0;
+    --green-1: #587E5B;
     --green-2: rgb(67, 105, 63);
+    --green-3: #31422E;
+    --yellow-1: #FFD02C;
+    --yellow-2: #D8AF27;
 }
 
 * {
@@ -12,27 +12,30 @@
 }
 
 body {
-    background-color: var(--bg-color-1);
+    background-color: var(--white);
 }
+
+/* navbar */
 
 #navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
 }
 
 .navbar {
     height: 80px;
-    background-color: var(--bg-color-2);
+    background-color: var(--green-1);
     padding-right: 10px;
     display: flex;
     justify-content: space-around;
+    padding: 0 24px;
 }
+
 
 .nav-item {
     font-size: 16px;
-    border-radius: 8px;
+    border-radius: 6px;
     background-color: var(--green-2);
     margin-left: 10px;
 }
@@ -43,21 +46,21 @@ body {
 }
 
 .nav-link {
-    color: var(--text-color-1) !important;
+    color: var(--yellow-2) !important;
 }
 
 .logo {
     display: flex;
     width: fit-content;
+    padding-right: 10px;
     height: 100%;
     text-decoration: none;
-    /* justify-content: center; */
     align-items: center;
     user-select: none;
 }
 
 .logo-icon {
-    height: 80%;
+    height: 50px;
 }
 
 .logo-text {
@@ -66,18 +69,37 @@ body {
     font-family: 'Saira Condensed', Calibri;
     font-size: 42px;
     margin: 0;
-    color: var(--heading-color-1);
+    color: var(--yellow-1);
 }
 
 .btn, :not(.btn-check)+.btn:hover {
-    background-color: var(--bg-color-2);
-    border-color: var(--bg-color-1);
+    background-color: var(--green-1);
+    border-color: var(--white);
 }
 
 :not(.btn-check)+.btn:hover {
     filter:brightness(0.9);
     transition: ease-in-out 0.1s;
 }
+
+
+.alert {
+    margin: 6px;
+}
+
+/* page content */
+
+main {
+    border: 3px solid black;
+    border-radius: 16px;
+}
+
+.p-5 {
+    margin: 30px auto !important;
+    max-width: 1200px;
+}
+
+/* form */
 
 form {
     width: 20%;
@@ -92,4 +114,44 @@ form button {
 
 .form-control {
     margin-bottom: 1em;
+}
+
+.form-control:focus {
+    border-color: var(--green-3);
+    box-shadow: 0 0 0 0.25rem rgba(72, 145, 59, 0.25);
+}
+
+/* mobile screens */
+
+@media only screen and (max-width: 560px) {
+    #navbar {
+        display: block;
+    }
+    
+    .nav-item {
+        /* background-color: var(--greeen-1); */
+        margin-bottom: 8px;
+        text-align: center;
+    }
+
+    .navbar {
+        height: fit-content;
+    }
+
+    form {
+        min-width: 0px;
+        width: 100%;
+    }
+
+    .collapse:not(.show) {
+        display: none !important;
+    }
+
+    main {
+        border: none;
+    }
+    
+    .p-5 {
+        padding: 30px 15px !important;
+    }
 }

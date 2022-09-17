@@ -34,7 +34,9 @@ def create_app(test_config=None):
     @app.route("/")
     @auth.login_required
     def index():
-        return render_template("index.html")
+        users = db.query_db("SELECT * FROM users WHERE user_id = :user_id", [session["user_id"]])
+
+        return render_template("index.html", username=users[0]["username"])
 
     @app.route("/login", methods=["GET", "POST"])
     def login():
@@ -55,8 +57,7 @@ def create_app(test_config=None):
             # remember user is logged in
             session["user_id"] = users[0]["user_id"]
 
-            flash("Successfully logged in.")
-            return render_template("index.html")
+            return redirect("/")
         else:
             return render_template("auth/login.html")
 
@@ -71,7 +72,7 @@ def create_app(test_config=None):
 
             users = db.query_db("SELECT * FROM users WHERE username = :username", [username])
 
-            # check username and password
+            # check unique username and confirm password
             if len(users) > 0:
                 flash("Username already taken.")
                 return render_template("auth/register.html"), 403
@@ -88,7 +89,7 @@ def create_app(test_config=None):
             session["user_id"] =  users[0]["user_id"]
 
             flash("Account successfully registered.")
-            return render_template("index.html")
+            return redirect("/")
         else:
             return render_template("auth/register.html")
 

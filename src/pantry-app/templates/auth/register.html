@@ -9,9 +9,9 @@
         <input autocomplete="false" name="hidden" type="text" style="display: none;">
         <div class="form-group">
             {% if entered_username %}
-            <input required class="form-control" name="username" placeholder="Username" type="text" value={{ entered_username }}>
+            <input required class="form-control" name="username" placeholder="Username" type="text" maxlength="20" value={{ entered_username }}>
             {% else %}
-            <input required class="form-control" name="username" placeholder="Username" type="text">
+            <input required class="form-control" name="username" placeholder="Username" type="text" maxlength="20">
             {% endif %}
         </div>
         <div class="form-group">
