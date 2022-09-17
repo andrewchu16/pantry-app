@@ -10,7 +10,12 @@ items, and tracking grocery spending habits. It will help you cut down on food w
 
 ## How it's built
 Pantry is built using Python and Flask for the backend and vanilla HTML and CSS for the frontend. 
-To run, first install the necessary packages, then run `flask run` in the src directory.
+
+## How to run it
+1. Install the `requirements.txt` packages.
+2. Change into the src directory.
+3. Run `flask --app pantry-app init-db`.
+4. Run `flask --app pantry-app run`.
 
 ## Inspiration
 I have a problem with managing expired foods. Many times over, I have disappointedly pulled jars 
@@ -19,4 +24,7 @@ greener than it should be. It haunts my dreams. So, I decided to build a solutio
 track my food for me. 
 
 ## What was learned
-This is my first time making a complete web application from scratch.
+This is my first time making a complete web application from scratch. I learned how to store user data
+and create an interactive 
+
+https://thenounproject.com/icon/grocery-5182392/

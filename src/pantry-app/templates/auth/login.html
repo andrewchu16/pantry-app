@@ -5,5 +5,14 @@
 {% endblock %}
 
 {% block main %}
-    <p>From login</p>
+    <form action="/login" method="post" autocomplete="off">
+        <input autocomplete="false" name="hidden" type="text" style="display: none;">
+        <div class="form-group">
+            <input required class="form-control" name="username" placeholder="Username" type="text">
+        </div>
+        <div class="form-group">
+            <input required class="form-control" name="password" placeholder="Password" type="password">
+        </div>
+        <button class="btn btn-primary" type="submit">Log In</button>
+    </form>
 {% endblock %}
