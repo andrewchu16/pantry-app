@@ -1,0 +1,30 @@
+* {
+    box-sizing: border-box;
+    /* border: 1px solid black; */
+}
+
+.navbar {
+    height: 80px;
+}
+
+.logo {
+    display: flex;
+    width: fit-content;
+    height: 100%;
+    text-decoration: none;
+    /* justify-content: center; */
+    align-items: center;
+    user-select: none;
+}
+
+.logo-icon {
+    height: 80%;
+}
+
+.logo-text {
+    display: inline-block;
+    color: black;
+    font-family: 'Saira Condensed', Calibri;
+    font-size: 42px;
+    margin: 0;
+}
