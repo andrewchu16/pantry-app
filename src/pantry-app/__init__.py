@@ -142,9 +142,12 @@ def create_app(test_config=None):
             storage_id = db.query_db("SELECT * FROM storages WHERE storage_name = :storage_name", [storage_name])[0]["storage_id"]
             for i in range(1, num_items+1):
                 item_name = request.form.get(f"item-name-{i}")
-                price = request.form.get(f"item-price-{i}").replace('$', '')
-                print(item_name)
-                db.insert_db("INSERT INTO items (storage_id, item_name, price) VALUES(?, ?, ?)", storage_id, item_name, price) 
+                price = request.form.get(f"item-price-{i}")
+                if price:
+                    db.insert_db("INSERT INTO items (storage_id, item_name, price) VALUES(?, ?, ?)", storage_id, item_name, price.replace("$", ""))
+                else:
+                    db.insert_db("INSERT INTO items (storage_id, item_name) VALUES(?, ?)", storage_id, item_name) 
+
             
             flash(f"{storage_name} created.")
             return redirect("/")
@@ -163,10 +166,14 @@ def create_app(test_config=None):
     @auth.login_required
     def pantry():
         pantry = db.query_db("SELECT * FROM storages WHERE user_id = :user_id AND storage_type = 1", [session["user_id"]])
-        pantry_name = pantry[0]["storage_name"]
-        pantry_id = pantry[0]["storage_id"]
-        pantry_items = db.query_db("SELECT * FROM items WHERE storage_id = :storage_id", [pantry_id])
-        return render_template("pantry.html", pantry_name=pantry_name, pantry_items=pantry_items) 
+
+        if len(pantry) > 0:
+            pantry_name = pantry[0]["storage_name"]
+            pantry_id = pantry[0]["storage_id"]
+            pantry_items = db.query_db("SELECT * FROM items WHERE storage_id = :storage_id", [pantry_id])
+            return render_template("pantry.html", pantry_name=pantry_name, pantry_items=pantry_items) 
+        else:
+            return render_template("pantry.html")
 
     @app.route("/query")
     @auth.login_required

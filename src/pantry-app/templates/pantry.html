@@ -6,6 +6,7 @@
 
 {% block main %}
     <h1>Pantry</h1>
+    {% if pantry_name %}
     <div class="gallery">
         <div class="storage">
             <h3>{{ pantry_name }}</h3>
@@ -16,4 +17,7 @@
             </ul>
         </div>
     </div>
+    {% else %}
+    <p>Your pantry is empty right now.</p>
+    {% endif %}
 {% endblock %}
