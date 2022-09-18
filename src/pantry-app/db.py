@@ -2,15 +2,13 @@ import sqlite3
 import click
 from flask import g, current_app
 
+
 # Modified from: https://flask.palletsprojects.com/en/2.2.x/tutorial/database/
 
 def get_db():
     """Create the database connection."""
     if 'db' not in g:
-        g.db = sqlite3.connect(
-            current_app.config['DATABASE'],
-            detect_types=sqlite3.PARSE_DECLTYPES
-        )
+        g.db = sqlite3.connect(current_app.config['DATABASE'], detect_types=sqlite3.PARSE_DECLTYPES)
         g.db.row_factory = sqlite3.Row
 
     return g.db
@@ -30,6 +28,7 @@ def init_db():
         db.executescript(f.read().decode('utf8'))
 
 def query_db(query, *args):
+    """Query rows in the database."""
     cursor = get_db().cursor()
     results = cursor.execute(query, *args).fetchall()
     cursor.close()
@@ -37,11 +36,11 @@ def query_db(query, *args):
     return results
 
 def insert_db(query, *args):
+    """Insert into the database."""
     db = get_db()
     cursor = db.cursor()
     cursor.execute(query, args)
     db.commit()
-
 
 @click.command('init-db')
 def init_db_command():

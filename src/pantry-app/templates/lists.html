@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Lists
+{% endblock %}
+
+{% block main %}
+    <h1>Lists 📃</h1>
+    <div class="gallery">
+        {% for grocery_list in lists %}
+            <div class="list" id={{'list-' ~ loop.counter}}>
+                
+            </div>
+        {% endfor %}
+        {% if not lists %}
+            <p>Don't have any yet? Let's make one!</p>
+        {% endif %}
+        <button class="btn btn-primary"><a href="/new-list">Make a List</a></button>
+    </div>
+{% endblock %}

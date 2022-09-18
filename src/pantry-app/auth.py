@@ -3,9 +3,7 @@ from functools import wraps
 
 
 def login_required(f):
-    """
-    Decorates an app path that needs login information.
-    """
+    """Decorates an app path that needs login information."""
     @wraps(f)
     def wrapper(*args, **kwargs):
         if session.get("user_id") is None:

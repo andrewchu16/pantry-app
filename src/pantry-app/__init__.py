@@ -2,7 +2,6 @@ from flask import Flask, render_template, session, request, flash, redirect
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
-
 from . import auth
 from . import db
 
@@ -109,7 +108,6 @@ def create_app(test_config=None):
             db.insert_db("INSERT INTO storages (user_id, storage_type, storage_name) VALUES(?, ?, ?)", 
                 session["user_id"], storage_type, storage_name)
 
-
             # add new list items 
             num_items = int(request.form.get("num-items"))
             storage_id = db.query_db("SELECT * FROM storages WHERE storage_name = :storage_name", [storage_name])[0]["storage_id"]
@@ -121,7 +119,8 @@ def create_app(test_config=None):
             flash(f"{storage_name} created.")
             return redirect("/")
         else:
-            unnamed_lists = db.query_db("SELECT * FROM storages WHERE storage_type=0 AND storage_name LIKE 'Grocery-List-%'")
+            unnamed_lists = db.query_db("SELECT * FROM storages WHERE storage_type=0 AND user_id is " +
+            ":user_id AND storage_name LIKE 'Grocery-List-%'", [session["user_id"]])
             return render_template("new-list.html", next_list_num=len(unnamed_lists) + 1)
 
     @app.route("/lists")
