@@ -57,3 +57,6 @@ pyvenv.cfg
 
 # VS Code 
 .vscode/
+
+# Database
+data.db
