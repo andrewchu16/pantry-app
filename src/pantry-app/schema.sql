@@ -12,17 +12,18 @@ CREATE TABLE users (
 -- user grocery lists and pantry
 CREATE TABLE storages (
     storage_id integer PRIMARY KEY AUTOINCREMENT,
-    storage_type integer, -- 0 means grocery list, 1 means pantry
     user_id integer,
-    storage_name text
+    storage_type integer, -- 0 means grocery list, 1 means pantry
+    storage_name text,
+    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- grocery items
-CREATE TABLE lists (
+CREATE TABLE items (
     item_id integer PRIMARY KEY AUTOINCREMENT,
     storage_id integer,
     item_name text,
     price real,
-    purchase_date DATETIME,
-    expiry_date DATETIME
+    purchase_date date,
+    expiry_date date
 );

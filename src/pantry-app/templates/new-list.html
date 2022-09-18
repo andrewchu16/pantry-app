@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}
+    New List
+{% endblock %}
+
+{% block main %}
+    <h1 class="page-heading">Make a New List</h1>
+    <form autocomplete="false" action="/new-list" method="post">
+        <input name="num-items" type="text" style="display: none;" value="1">
+        <div class="form-group bordered">
+            <label for="list-name">Name this list:</label>
+            <input class="form-control" required type="text" name="list-name" maxlength="30" 
+                value={{ 'Grocery-List-' ~ next_list_num }} placeholder="List Name">
+        </div>
+        <div class="form-group bordered" id="item-1">
+            <h2 class="form-group-title">Item #1</h2>
+            <label for="item-name-1">Item name:</label>
+            <input class="form-control" required type="text" name="item-name-1" placeholder="Item Name">
+        </div>
+        <div class="flex-buttons">
+            <button class="btn btn-primary" type="button" id="add-button">Add Item</button>
+            <button class="btn btn-primary" type="button" id="remove-button">Remove Item</button>
+            <button class="btn btn-primary" type="submit">Create List</button>
+        </div>
+    </form>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/new-list.js"></script>
+{% endblock %}

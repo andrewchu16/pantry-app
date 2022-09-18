@@ -30,13 +30,12 @@ def create_app(test_config=None):
     app.config["SESSION_FILE_DIR"] = mkdtemp()
     Session(app)
 
-
     @app.route("/")
     @auth.login_required
     def index():
         users = db.query_db("SELECT * FROM users WHERE user_id = :user_id", [session["user_id"]])
-
-        return render_template("index.html", username=users[0]["username"])
+        lists = db.query_db("SELECT * FROM storages WHERE storage_type = 0 ORDER BY created_date DESC")
+        return render_template("index.html", username=users[0]["username"], lists=lists)
 
     @app.route("/login", methods=["GET", "POST"])
     def login():
@@ -94,9 +93,46 @@ def create_app(test_config=None):
             return render_template("auth/register.html")
 
     @app.route("/logout")
+    @auth.login_required
     def logout():
         session.clear()
         return redirect("/")
     
+    @app.route("/new-list", methods=["GET", "POST"])
+    @auth.login_required
+    def new_list():
+        if request.method == "POST":
+            storage_type = 0 # grocery list type
+            storage_name = request.form.get("list-name")
+
+            # create a new list
+            db.insert_db("INSERT INTO storages (user_id, storage_type, storage_name) VALUES(?, ?, ?)", 
+                session["user_id"], storage_type, storage_name)
+
+
+            # add new list items 
+            num_items = int(request.form.get("num-items"))
+            storage_id = db.query_db("SELECT * FROM storages WHERE storage_name = :storage_name", [storage_name])[0]["storage_id"]
+            for i in range(1, num_items+1):
+                item_name = request.form.get(f"item-name-{i}")
+                print(item_name)
+                db.insert_db("INSERT INTO items (storage_id, item_name) VALUES(?, ?)", storage_id, item_name) 
+            
+            flash(f"{storage_name} created.")
+            return redirect("/")
+        else:
+            unnamed_lists = db.query_db("SELECT * FROM storages WHERE storage_type=0 AND storage_name LIKE 'Grocery-List-%'")
+            return render_template("new-list.html", next_list_num=len(unnamed_lists) + 1)
+
+    @app.route("/lists")
+    @auth.login_required
+    def lists():
+        return render_template("lists.html")
+
+    @app.route("/pantry")
+    @auth.login_required
+    def pantry():
+        return render_template("pantry.html") 
+
     return app
     
