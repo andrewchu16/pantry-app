@@ -232,6 +232,19 @@ input {
     padding-left: 0;
 }
 
+a:has(.svg) {
+    height: 100%;
+    margin: 2px;
+}
+
+.red.svg {
+    filter: invert(11%) sepia(72%) saturate(7442%) hue-rotate(2deg) brightness(98%) contrast(114%);
+}
+
+.green.svg {
+    filter: invert(50%) sepia(78%) saturate(3018%) hue-rotate(87deg) brightness(120%) contrast(118%);
+}
+
 /* non-mobile screens */
 
 @media only screen and (min-width: 768px) {

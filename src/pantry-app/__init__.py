@@ -169,11 +169,28 @@ def create_app(test_config=None):
     def query():
         query_type = request.args.get("type")
         item_id = request.args.get("item_id")
+        item = db.query_db("SELECT * FROM items WHERE item_id = :item_id", [item_id])
+        storage_id = item[0]["storage_id"]
 
         if query_type == "remove":
-            pass
-        elif query_type == "buy":
-            pass
+            db.insert_db("DELETE FROM items WHERE item_id = :item_id", item_id)
+            flash("Item removed.")
+        elif query_type == "transfer":
+            storage_type = 1  # for pantries
+            user = db.query_db("SELECT * FROM users WHERE user_id = :user_id", [session["user_id"]])
+            
+            user_pantry = db.query_db("SELECT * FROM storages WHERE user_id = :user_id AND storage_type = 1", [session["user_id"]])
+            # create a new pantry for the user if they do not have one.
+            if len(user_pantry) < 1:
+                db.insert_db("INSERT INTO storages (user_id, storage_type, storage_name) VALUES(?, ?, ?)", 
+                session["user_id"], storage_type, user[0]["username"])
+            db.insert_db("UPDATE items SET storage_id = :storage_id WHERE item_id = :item_id", user_pantry[0]["storage_id"], item_id)
+            flash("Item added to your pantry.")
+        # remove empty lists
+        items_in_list = db.query_db("SELECT * FROM items WHERE storage_id = :storage_id", [storage_id])
+        if len(items_in_list) == 0:
+            db.insert_db("DELETE FROM storages WHERE storage_id = :storage_id", storage_id)
+        return redirect("/")
 
     return app
 

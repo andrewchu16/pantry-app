@@ -6,6 +6,7 @@
 
 {% block main %}
     <h1>Lists 📃</h1>
+    <p>Click on the <img src="/static/check-circle.svg"> to add the item to your pantry. </p>
     <button class="btn btn-primary"><a href="/new-list">Make a List</a></button>
     <div class="gallery">
         {% for list_name, list in lists.items() %}
@@ -14,7 +15,9 @@
                 <p class="date">Written on {{ list.date }}</p>
                 <ul>
                     {% for item in list.list_items %}
-                        <li><a href="/"><img src="/static/check-circle.svg"></a>{{ item.item_name }} {{ item.price|dollar }} </li>
+                        <li><a href={{ '/query?type=transfer&item_id=' ~ item.item_id }}><img class="green svg" src="/static/check-circle.svg"></a>
+                            {{ item.item_name }} {{ item.price|dollar }} 
+                            <a href={{ '/query?type=remove&item_id=' ~ item.item_id }}><img class="red svg" src="/static/x-circle.svg"></a></li>
                     {% endfor %}
                 </ul>
             </div>
