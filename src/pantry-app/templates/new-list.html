@@ -17,6 +17,8 @@
             <h2 class="form-group-title">Item #1</h2>
             <label for="item-name-1">Item name:</label>
             <input class="form-control" required type="text" name="item-name-1" placeholder="Item Name">
+            <label for="item-price-1">Item price (optional):</label>
+            <input class="form-control" type="text" pattern="^\$?\d*(\.\d{0,2})?$" name="item-price-1" placeholder="Price" title="Must be a valid price with up to 2 decimals.">
         </div>
         <div class="flex-buttons">
             <button class="btn btn-primary" type="button" id="add-button">Add Item</button>

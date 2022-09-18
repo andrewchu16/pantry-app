@@ -13,6 +13,13 @@ $(window).ready(function() {
         newItem.find(`input[name="item-name-${itemNum - 1}"]`).first().attr(
             'name',
             `item-name-${itemNum}`);
+        newItem.find(`label[for="item-price-${itemNum - 1}"]`).first().attr(
+            'for',
+            `item-name-${itemNum}`);
+        newItem.find(`input[name="item-price-${itemNum - 1}"]`).first().val('');
+        newItem.find(`input[name="item-name-${itemNum - 1}"]`).first().attr(
+            'name',
+            'item-name-${itemNum}');
 
         $('input[name="num-items"]')[0].value = itemNum.toString();
     });

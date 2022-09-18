@@ -128,7 +128,7 @@ form button {
 }
 
 .form-group {
-    margin: 0 auto 1em auto;
+    margin: auto;
     border-radius: 8px;
     width: 95%;
     max-width: 300px;
@@ -192,6 +192,10 @@ form .btn {
     column-gap: 10px;
 }
 
+.preview {
+    flex-wrap: nowrap;
+}
+
 .grocery-list {
     font-size: 1.2em;
     text-overflow: ellipsis;
@@ -201,6 +205,10 @@ form .btn {
     border: 1px solid var(--white);
     background-color: var(--white);
     padding: 10px;
+}
+
+input {
+    margin-bottom: 10px;
 }
 
 .date {
@@ -213,7 +221,15 @@ form .btn {
 }
 
 .gallery li {
+    border: 3px solid var(--green-1);
+    background-color: white;
+    border-radius: 6px;
+    margin-bottom: 2px;
+}
 
+.gallery ul {
+    list-style: none;
+    padding-left: 0;
 }
 
 /* non-mobile screens */

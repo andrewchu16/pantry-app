@@ -14,7 +14,7 @@
                 <p class="date">Written on {{ list.date }}</p>
                 <ul>
                     {% for item in list.list_items %}
-                        <li>{{ item.item_name }}</li>
+                        <li><a href="/"><img src="/static/check-circle.svg"></a>{{ item.item_name }} {{ item.price|dollar }} </li>
                     {% endfor %}
                 </ul>
             </div>

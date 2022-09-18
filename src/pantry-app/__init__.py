@@ -5,6 +5,7 @@ from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
 from . import auth
 from . import db
+from datetime import date
 
 
 def create_app(test_config=None):
@@ -25,6 +26,14 @@ def create_app(test_config=None):
     # Use database
     app.teardown_appcontext(db.close_db)
     app.cli.add_command(db.init_db_command)
+
+    # Set dollar format
+    @app.template_filter('dollar')
+    def dollar(s):
+        if s:
+            return f"${s:,.2f}"
+        else:
+            return ""
 
     # Use filesystem instead of signed cookies
     app.config["SESSION_FILE_DIR"] = mkdtemp()
@@ -133,8 +142,9 @@ def create_app(test_config=None):
             storage_id = db.query_db("SELECT * FROM storages WHERE storage_name = :storage_name", [storage_name])[0]["storage_id"]
             for i in range(1, num_items+1):
                 item_name = request.form.get(f"item-name-{i}")
+                price = request.form.get(f"item-price-{i}").replace('$', '')
                 print(item_name)
-                db.insert_db("INSERT INTO items (storage_id, item_name) VALUES(?, ?)", storage_id, item_name) 
+                db.insert_db("INSERT INTO items (storage_id, item_name, price) VALUES(?, ?, ?)", storage_id, item_name, price) 
             
             flash(f"{storage_name} created.")
             return redirect("/")
@@ -154,5 +164,17 @@ def create_app(test_config=None):
     def pantry():
         return render_template("pantry.html") 
 
+    @app.route("/query")
+    @auth.login_required
+    def query():
+        query_type = request.args.get("type")
+        item_id = request.args.get("item_id")
+
+        if query_type == "remove":
+            pass
+        elif query_type == "buy":
+            pass
+
     return app
+
     

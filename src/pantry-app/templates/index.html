@@ -7,7 +7,7 @@
 {% block main %}
     <h1>Welcome, {{ username }}! 🍌🍎🍞🛒</h1>
     <h2>Here are your latest lists...</h2>
-    <div class="gallery">
+    <div class="gallery preview">
         {% for list_name, list in lists.items() %}
             {% if loop.index <= 3 %}
                 <div class="grocery-list" id={{'list-' ~ loop.index}}>
@@ -15,7 +15,7 @@
                     <p class="date">Written on {{ list.date }}</p>
                     <ul>
                         {% for item in list.list_items %}
-                            <li>{{ item.item_name }}</li>
+                            <li>{{ item.item_name }} {{ item.price|dollar }}</li>
                         {% endfor %}
                     </ul>
                 </div>
