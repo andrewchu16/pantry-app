@@ -1,9 +1,11 @@
+from venv import create
 from flask import Flask, render_template, session, request, flash, redirect
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
 from . import auth
 from . import db
+from datetime import datetime
 
 
 def create_app(test_config=None):
@@ -29,12 +31,31 @@ def create_app(test_config=None):
     app.config["SESSION_FILE_DIR"] = mkdtemp()
     Session(app)
 
+    def create_list_obj():
+        list_obj = dict()
+        grocery_lists = db.query_db("SELECT * FROM storages WHERE storage_type=0 AND user_id=:user_id ORDER BY created_date DESC", [session["user_id"]])
+        
+        for grocery_list in grocery_lists:
+            storage_id = grocery_list["storage_id"]
+            storage_name = grocery_list["storage_name"]
+            created_date = grocery_list["created_date"].date()
+            
+            items = db.query_db("SELECT * FROM items WHERE storage_id=:storage_id", [storage_id])
+
+            list_obj[storage_name] = dict()
+            list_obj[storage_name]["date"] = created_date
+            list_obj[storage_name]["list_items"] = items
+
+        return list_obj
+
+
     @app.route("/")
     @auth.login_required
     def index():
         users = db.query_db("SELECT * FROM users WHERE user_id = :user_id", [session["user_id"]])
-        lists = db.query_db("SELECT * FROM storages WHERE storage_type = 0 ORDER BY created_date DESC")
-        return render_template("index.html", username=users[0]["username"], lists=lists)
+
+        list_obj = create_list_obj()
+        return render_template("index.html", username=users[0]["username"], lists=list_obj)
 
     @app.route("/login", methods=["GET", "POST"])
     def login():
@@ -126,7 +147,8 @@ def create_app(test_config=None):
     @app.route("/lists")
     @auth.login_required
     def lists():
-        return render_template("lists.html")
+        list_obj = create_list_obj()
+        return render_template("lists.html", lists=list_obj)
 
     @app.route("/pantry")
     @auth.login_required

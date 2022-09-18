@@ -6,20 +6,26 @@
 
 {% block main %}
     <h1>Welcome, {{ username }}! 🍌🍎🍞🛒</h1>
-    <h2>Here are your lists...</h2>
+    <h2>Here are your latest lists...</h2>
     <div class="gallery">
-        {% for grocery_list in lists %}
-            {% if loop.index < 3 %}
-                <div class="list" id={{'list-' ~ loop.counter}}>
-
+        {% for list_name, list in lists.items() %}
+            {% if loop.index <= 3 %}
+                <div class="grocery-list" id={{'list-' ~ loop.index}}>
+                    <h3 class="title">{{ list_name }}</h3>
+                    <p class="date">Written on {{ list.date }}</p>
+                    <ul>
+                        {% for item in list.list_items %}
+                            <li>{{ item.item_name }}</li>
+                        {% endfor %}
+                    </ul>
                 </div>
             {% endif %}
         {% endfor %}
-        {% if not lists %}
-            <p>Don't have any yet? Let's make one!</p>
-        {% else %}
-        <button class="btn btn-primary"><a href="/lists">View All Lists </a></button>
-        {% endif %}
-        <button class="btn btn-primary"><a href="/new-list">Make a List</a></button>
     </div>
+    {% if not lists %}
+        <p>Don't have any yet? Let's make one!</p>
+    {% else %}
+        <button class="btn btn-primary"><a href="/lists">View All Lists </a></button>
+    {% endif %}
+    <button class="btn btn-primary"><a href="/new-list">Make a List</a></button>
 {% endblock %}

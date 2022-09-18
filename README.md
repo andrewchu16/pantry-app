@@ -15,7 +15,7 @@ for the frontend.
 ## How to run it
 1. Install the `requirements.txt` python packages.
 2. Go into the src directory.
-3. Run `flask --app pantry-app init-db`.
+3. Run `flask --app pantry-app init-db`. This will initialize or reset the user database.
 4. Run `flask --app pantry-app run`.
 
 ## Inspiration

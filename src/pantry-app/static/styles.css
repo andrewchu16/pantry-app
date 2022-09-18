@@ -176,7 +176,44 @@ form .btn {
     width: fit-content;
     margin: auto;
     flex-wrap: wrap;
-    
+}
+
+/* grocery list view */
+.gallery {
+    margin: 15px 0;
+    border-radius: 16px;
+    border: 1px solid var(--white);
+    background-color: var(--green-3);
+    padding: 30px 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    row-gap: 30px;
+    column-gap: 10px;
+}
+
+.grocery-list {
+    font-size: 1.2em;
+    text-overflow: ellipsis;
+    overflow: clip;
+    color: black;
+    border-radius: 8px;
+    border: 1px solid var(--white);
+    background-color: var(--white);
+    padding: 10px;
+}
+
+.date {
+    display: inline-block;
+    font-size: 0.7em;
+}
+
+.gallery.title {
+    display: inline-block;
+}
+
+.gallery li {
+
 }
 
 /* non-mobile screens */
