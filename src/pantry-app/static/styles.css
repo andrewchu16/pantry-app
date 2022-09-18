@@ -45,7 +45,7 @@ body {
 }
 
 .nav-link {
-    color: var(--yellow-2) !important;
+    color: var(--yellow-1) !important;
 }
 
 .logo {
@@ -155,6 +155,14 @@ label {
     border: 1px solid var(--white) !important;
     filter: brightness(0.9);
     transition: ease-in-out 0.1s;
+}
+
+.btn:focus, .btn-primary:focus {
+    color: var(--white);
+    background-color: var(--green-1) !important;
+    border: 1px solid var(--white) !important;
+    filter: brightness(0.9);
+    box-shadow: 0 0 0 0.25rem rgba(72, 145, 59, 0.25);
 }
 
 form .btn {

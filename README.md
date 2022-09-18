@@ -9,8 +9,8 @@ managing pantry items, and tracking grocery spending habits. It will help you cu
 waste in no time!
 
 ## How it's built
-Pantry is built using Flask and sqlite3 for the backend and HTML and CSS with Bootstrap for the 
-frontend. 
+Pantry is built using Flask and sqlite3 for the backend and HTML and CSS with Bootstrap and jQuery 
+for the frontend. 
 
 ## How to run it
 1. Install the `requirements.txt` python packages.

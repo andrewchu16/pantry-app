@@ -9,10 +9,10 @@ $(window).ready(function() {
         newItem.find(`label[for="item-name-${itemNum - 1}"]`).first().attr(
             'for',
             `item-name-${itemNum}`);
+        newItem.find(`input[name="item-name-${itemNum - 1}"]`).first().val('');
         newItem.find(`input[name="item-name-${itemNum - 1}"]`).first().attr(
             'name',
             `item-name-${itemNum}`);
-        newItem.find(`input[name="item-name-${itemNum - 1}"]`).first().html(' ');
 
         $('input[name="num-items"]')[0].value = itemNum.toString();
     });
