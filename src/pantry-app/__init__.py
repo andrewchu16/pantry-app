@@ -5,7 +5,6 @@ from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
 from . import auth
 from . import db
-from datetime import datetime
 
 
 def create_app(test_config=None):
