@@ -10,7 +10,7 @@
     <button class="btn btn-primary"><a href="/new-list">Make a List</a></button>
     <div class="gallery">
         {% for list_name, list in lists.items() %}
-            <div class="grocery-list" id={{'list-' ~ loop.index}}>
+            <div class="storage" id={{'list-' ~ loop.index}}>
                 <h3>{{ list_name }}</h3>
                 <p class="date">Written on {{ list.date }}</p>
                 <ul>

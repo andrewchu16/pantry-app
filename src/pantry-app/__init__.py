@@ -162,7 +162,11 @@ def create_app(test_config=None):
     @app.route("/pantry")
     @auth.login_required
     def pantry():
-        return render_template("pantry.html") 
+        pantry = db.query_db("SELECT * FROM storages WHERE user_id = :user_id AND storage_type = 1", [session["user_id"]])
+        pantry_name = pantry[0]["storage_name"]
+        pantry_id = pantry[0]["storage_id"]
+        pantry_items = db.query_db("SELECT * FROM items WHERE storage_id = :storage_id", [pantry_id])
+        return render_template("pantry.html", pantry_name=pantry_name, pantry_items=pantry_items) 
 
     @app.route("/query")
     @auth.login_required
@@ -183,7 +187,7 @@ def create_app(test_config=None):
             # create a new pantry for the user if they do not have one.
             if len(user_pantry) < 1:
                 db.insert_db("INSERT INTO storages (user_id, storage_type, storage_name) VALUES(?, ?, ?)", 
-                session["user_id"], storage_type, user[0]["username"])
+                session["user_id"], storage_type, user[0]["username"] + "'s Pantry")
             db.insert_db("UPDATE items SET storage_id = :storage_id WHERE item_id = :item_id", user_pantry[0]["storage_id"], item_id)
             flash("Item added to your pantry.")
         # remove empty lists

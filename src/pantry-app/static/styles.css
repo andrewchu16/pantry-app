@@ -196,7 +196,7 @@ form .btn {
     flex-wrap: nowrap;
 }
 
-.grocery-list {
+.storage {
     font-size: 1.2em;
     text-overflow: ellipsis;
     overflow: clip;

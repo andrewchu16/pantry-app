@@ -10,7 +10,7 @@
     <div class="gallery preview">
         {% for list_name, list in lists.items() %}
             {% if loop.index <= 3 %}
-                <div class="grocery-list" id={{'list-' ~ loop.index}}>
+                <div class="storage" id={{'list-' ~ loop.index}}>
                     <h3 class="title">{{ list_name }}</h3>
                     <p class="date">Written on {{ list.date }}</p>
                     <ul>
