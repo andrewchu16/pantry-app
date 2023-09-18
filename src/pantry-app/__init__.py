@@ -49,6 +49,7 @@ def create_app(test_config=None):
             created_date = grocery_list["created_date"].date()
             
             items = db.query_db("SELECT * FROM items WHERE storage_id=:storage_id", [storage_id])
+            print(storage_id)
 
             list_obj[storage_name] = dict()
             list_obj[storage_name]["date"] = created_date
@@ -195,6 +196,7 @@ def create_app(test_config=None):
             if len(user_pantry) < 1:
                 db.insert_db("INSERT INTO storages (user_id, storage_type, storage_name) VALUES(?, ?, ?)", 
                 session["user_id"], storage_type, user[0]["username"] + "'s Pantry")
+                user_pantry = db.query_db("SELECT * FROM storages WHERE user_id = :user_id AND storage_type = 1", [session["user_id"]])
             db.insert_db("UPDATE items SET storage_id = :storage_id WHERE item_id = :item_id", user_pantry[0]["storage_id"], item_id)
             flash("Item added to your pantry.")
         # remove empty lists

@@ -15,11 +15,11 @@ $(window).ready(function() {
             `item-name-${itemNum}`);
         newItem.find(`label[for="item-price-${itemNum - 1}"]`).first().attr(
             'for',
-            `item-name-${itemNum}`);
+            `item-price-${itemNum}`);
         newItem.find(`input[name="item-price-${itemNum - 1}"]`).first().val('');
-        newItem.find(`input[name="item-name-${itemNum - 1}"]`).first().attr(
+        newItem.find(`input[name="item-price-${itemNum - 1}"]`).first().attr(
             'name',
-            'item-name-${itemNum}');
+            `item-price-${itemNum}`);
 
         $('input[name="num-items"]')[0].value = itemNum.toString();
     });
